@@ -3,12 +3,16 @@ from rest_framework import serializers
 
 from .models.mango import Mango
 from .models.user import User
+from .models.resource import Resource
 
 class MangoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mango
         fields = ('id', 'name', 'color', 'ripe', 'owner')
-
+class ResourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Resource
+        fields = "__all__"
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation
     # The login serializer also inherits from this serializer
