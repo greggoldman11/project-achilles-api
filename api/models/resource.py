@@ -16,7 +16,8 @@ class Resource(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(
         get_user_model(),
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='owner'
     )
     # create a string method
     def __str__(self):
