@@ -15,15 +15,10 @@ class Resource(models.Model):
     link = models.URLField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(
+    owner = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
-        related_name='user'
-    )
-    comment = models.ManyToManyField(
-      User,
-      through='Comment',
-      through_fields=('resource', 'user')
+        related_name='owner'
     )
     # create a string method
     def __str__(self):
