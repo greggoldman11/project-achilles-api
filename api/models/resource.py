@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from . import User
 
 # start by creating a class for a resource
 class Resource(models.Model):
@@ -14,10 +15,15 @@ class Resource(models.Model):
     link = models.URLField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    owner = models.ForeignKey(
+    user = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
-        related_name='owner'
+        related_name='user'
+    )
+    comment = models.ManyToManyField(
+      User,
+      through='Comment',
+      through_fields=('resource', 'user')
     )
     # create a string method
     def __str__(self):
