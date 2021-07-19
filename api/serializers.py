@@ -3,11 +3,19 @@ from rest_framework import serializers
 
 from .models.user import User
 from .models.resource import Resource
+from .models.comment import Comment
 
+
+class CommentSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Comment
+    fields =  "__all__"
 class ResourceSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
     class Meta:
         model = Resource
-        fields = "__all__"
+        fields = ("id", "name", "description", "comments")
+
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation
     # The login serializer also inherits from this serializer

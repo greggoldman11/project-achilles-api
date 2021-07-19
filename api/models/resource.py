@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from . import User
 
 # start by creating a class for a resource
 class Resource(models.Model):
