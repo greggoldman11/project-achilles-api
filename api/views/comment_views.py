@@ -29,7 +29,7 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
         """Show Request"""
         comment = get_object_or_404(Comment, pk=pk)
         data = CommentSerializer(comment).data
-        return Response({ 'comments': data })
+        return Response(data)
     def delete(self, request, pk):
         """Delete Request"""
         comment = get_object_or_404(Comment, pk=pk)
