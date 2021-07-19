@@ -31,8 +31,6 @@ class ResourceDetail(generics.RetrieveUpdateDestroyAPIView):
     def get(self, request, pk):
         """Show Request"""
         resource = get_object_or_404(Resource, pk=pk)
-        if not request.user.id == resource.owner.id:
-            raise PermissionDenied('You are unauthorized')
         data = ResourceSerializer(resource).data
         return Response({ 'resource': data })
     def delete(self, request, pk):

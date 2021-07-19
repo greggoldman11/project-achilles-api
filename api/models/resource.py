@@ -10,11 +10,14 @@ class Resource(models.Model):
     description = models.CharField(max_length=500)
     # category/tag
     category = models.CharField(max_length=100)
-    # hyperlink field
+    # url field
     link = models.URLField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(
         get_user_model(),
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='owner'
     )
     # create a string method
     def __str__(self):

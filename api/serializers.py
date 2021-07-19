@@ -1,18 +1,21 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from .models.mango import Mango
 from .models.user import User
 from .models.resource import Resource
+from .models.comment import Comment
 
-class MangoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Mango
-        fields = ('id', 'name', 'color', 'ripe', 'owner')
+
+class CommentSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Comment
+    fields =  "__all__"
 class ResourceSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
     class Meta:
         model = Resource
-        fields = "__all__"
+        fields = ("id", "name", "description", "comments")
+
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation
     # The login serializer also inherits from this serializer
@@ -27,7 +30,6 @@ class UserSerializer(serializers.ModelSerializer):
     # This create method will be used for model creation
     def create(self, validated_data):
         return get_user_model().objects.create_user(**validated_data)
-
 class UserRegisterSerializer(serializers.Serializer):
     # Require email, password, and password_confirmation for sign up
     email = serializers.CharField(max_length=300, required=True)
