@@ -7,14 +7,14 @@ from .models.comment import Comment
 
 
 class CommentSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Comment
-    fields =  "__all__"
+    class Meta:
+      model = Comment
+      fields =  "__all__"
 class ResourceSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     class Meta:
         model = Resource
-        fields = ("id", "name", "description", "comments", "owner")
+        fields = ("id", "name", "description", "link", "category", "comments", "owner")
 
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation
